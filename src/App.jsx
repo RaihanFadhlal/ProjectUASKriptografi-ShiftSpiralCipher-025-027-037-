@@ -5,28 +5,28 @@ import { encrypt, decrypt, splitIntoChunk } from './function'
 
 function App() {
   const [OutputText, setOutputText] = useState("");
-  const [Mode, setMode] = useState("ENCRYPT");
+  const [Mode, chooseMode] = useState("ENCRYPT");
 
-  const runSDES = (e) => {
+  const goSubmit = (e) => {
     e.preventDefault();
-    let inputText = String(e.target.input1.value);
-    let masterKey = parseInt(e.target.input2.value);
+    let inputPlainCipher = String(e.target.input1.value);
+    let shiftKey = parseInt(e.target.input2.value);
 
     let finalPerm;
     if(Mode == "ENCRYPT") {
-      finalPerm = encrypt(inputText, masterKey);
+      finalPerm = encrypt(inputPlainCipher, shiftKey);
     } else if(Mode == "DECRYPT") {
-      finalPerm = decrypt(inputText, masterKey);
+      finalPerm = decrypt(inputPlainCipher, shiftKey);
     }
     setOutputText(finalPerm);
   };
 
   return (
-    <div className="container mt-5 p-3 prose rounded-md bg-violet-200">
+    <div className="container mt-5 p-3 prose rounded-md bg-green-200">
       <h1 className="hero-content pt-0 m-0 text-center">Shift-Spiral Encoder/Decoder</h1>
       <div className="bg-white rounded-md">
         <h2 className="text-center pt-3 m-0">Input:</h2>
-        <form onSubmit={runSDES}>
+        <form onSubmit={goSubmit}>
           <div className="flex flex-row justify-center gap-20">
             <div>
               <label className="label">Plaintext/Ciphertext</label>
@@ -59,7 +59,7 @@ function App() {
                   value="ENCRYPT"
                   className="radio checked:bg-blue-500"
                   onChange={(e) => {
-                    setMode(e.target.value);
+                    chooseMode(e.target.value);
                   }}
                 />
               </label>
@@ -74,7 +74,7 @@ function App() {
                   value="DECRYPT"
                   className="radio checked:bg-blue-500"
                   onChange={(e) => {
-                    setMode(e.target.value);
+                    chooseMode(e.target.value);
                   }}
                 />
               </label>
@@ -88,7 +88,7 @@ function App() {
             >
               Submit
             </button>
-            <button type="reset" onClick={() => {setMode('ENCRYPT')}} className="btn btn-error w-32 rounded-full">
+            <button type="reset" onClick={() => {chooseMode('ENCRYPT')}} className="btn btn-error w-32 rounded-full">
               Reset
             </button>
           </div>
