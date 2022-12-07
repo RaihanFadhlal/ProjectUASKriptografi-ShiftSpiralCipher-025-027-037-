@@ -6,20 +6,20 @@ import React from 'react'
 
 function App() {
   const [OutputText, setOutputText] = useState("");
-  const [Mode, chooseMode] = useState("ENCRYPT");
+  const [Mode, chooseMode] = useState("enkripsi");
 
   const goSubmit = (e) => {
     e.preventDefault();
     let inputPlainCipher = String(e.target.input1.value);
     let shiftKey = parseInt(e.target.input2.value);
 
-    let finalPerm;
-    if(Mode == "ENCRYPT") {
-      finalPerm = encrypt(inputPlainCipher, shiftKey);
-    } else if(Mode == "DECRYPT") {
-      finalPerm = decrypt(inputPlainCipher, shiftKey);
+    let hasil;
+    if(Mode == "enkripsi") {
+      hasil = encrypt(inputPlainCipher, shiftKey);
+    } else if(Mode == "dekripsi") {
+      hasil = decrypt(inputPlainCipher, shiftKey);
     }
-    setOutputText(finalPerm);
+    setOutputText(hasil);
   };
 
   return (
@@ -30,7 +30,7 @@ function App() {
         <form onSubmit={goSubmit}>
           <div className="flex flex-row justify-center gap-20">
             <div>
-              <label className="label">Plaintext/Ciphertext</label>
+              <label className="label">Plaintext/Ciphertext&nbsp;</label>
               <input
                 name="input1"
                 type="text"
@@ -40,7 +40,7 @@ function App() {
             </div>
 
             <div>
-              <label className="label">Shift Key</label>
+              <label className="label">Shift Key&nbsp;</label>
               <input
                 name="input2"
                 type="text"
@@ -52,12 +52,12 @@ function App() {
           <div className="flex flex-row m-2 p-2 justify-center">
             <div>
               <label className="label cursor-pointer gap-2">
-                <span className="label-text">Encrypt</span>
+                <span className="label-text">Encrypt&nbsp;</span>
                 <input
                   type="radio"
                   name="mode"
-                  checked={Mode === "ENCRYPT"}
-                  value="ENCRYPT"
+                  checked={Mode === "enkripsi"}
+                  value="enkripsi"
                   className="radio checked:bg-blue-500"
                   onChange={(e) => {
                     chooseMode(e.target.value);
@@ -65,14 +65,15 @@ function App() {
                 />
               </label>
             </div>
+            &nbsp;&nbsp;&nbsp;
             <div>
               <label className="label cursor-pointer gap-2">
-                <span className="label-text">Decrypt</span>
+                <span className="label-text">Decrypt&nbsp;</span>
                 <input
                   type="radio"
                   name="mode"
-                  checked={Mode === "DECRYPT"}
-                  value="DECRYPT"
+                  checked={Mode === "dekripsi"}
+                  value="dekripsi"
                   className="radio checked:bg-blue-500"
                   onChange={(e) => {
                     chooseMode(e.target.value);
@@ -89,7 +90,7 @@ function App() {
             >
               Submit
             </button>
-            <button type="reset" onClick={() => {chooseMode('ENCRYPT')}} className="btn btn-error w-32 rounded-full bg-red-200">
+            <button type="reset" onClick={() => {chooseMode('enkripsi')}} className="btn btn-error w-32 rounded-full bg-red-200">
               Reset
             </button>
           </div>
